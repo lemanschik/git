@@ -15,7 +15,7 @@ import { posixifyPathBuffer } from '../utils/posixifyPathBuffer.js'
  * Add a file to the git index (aka staging area)
  *
  * @param {object} args
- * @param {FsClient} args.fs - a file system implementation
+ * @param {import('fs')} args.fs - a file system implementation
  * @param {string} args.dir - The [working tree](dir-vs-gitdir.md) directory path
  * @param {string} [args.gitdir=join(dir, '.git')] - [required] The [git directory](dir-vs-gitdir.md) path
  * @param {string|string[]} args.filepath - The path to the file to add to the index
@@ -93,20 +93,19 @@ async function addToIndex({ dir, gitdir, fs, filepath, index, force }) {
     }
   })
 
-  const settledPromises = await Promise.allSettled(promises)
-  const rejectedPromises = settledPromises
-    .filter(settle => settle.status === 'rejected')
-    .map(settle => settle.reason)
-  if (rejectedPromises.length > 1) {
-    throw new MultipleGitError(rejectedPromises)
-  }
-  if (rejectedPromises.length === 1) {
-    throw rejectedPromises[0]
-  }
+//   const settledPromises = await Promise.allSettled(promises)
+//   const rejectedPromises = settledPromises
+//     .filter(settle => settle.status === 'rejected')
+//     .map(settle => settle.reason)
+//   if (rejectedPromises.length > 1) {
+//     throw new MultipleGitError(rejectedPromises)
+//   }
+//   if (rejectedPromises.length === 1) {
+//     throw rejectedPromises[0]
+//   }
 
-  const fulfilledPromises = settledPromises
-    .filter(settle => settle.status === 'fulfilled' && settle.value)
-    .map(settle => settle.value)
+//   const fulfilledPromises = settledPromises
+//     .filter(settle => settle.status === 'fulfilled' && settle.value)
 
-  return fulfilledPromises
+//   return fulfilledPromises
 }

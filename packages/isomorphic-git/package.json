@@ -3,10 +3,7 @@
   "version": "0.0.0-development",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
-  "typings": "./index.d.ts",
-  "main": "./index.cjs",
-  "module": "./index.js",
-  "unpkg": "./index.umd.min.js",
+  "main": "./src/index.js",
   "bin": {
     "isogit": "./cli.cjs"
   },
