@@ -12,21 +12,13 @@ const http = require('./http.js')
 
 minimisted(async function({ _: [command, ...args], ...opts }) {
   try {
-    const result = await git[command](
-      Object.assign(
-        {
-          fs,
-          http,
-          dir: '.',
-          onAuth: () => ({ username: opts.username, password: opts.password }),
-          headers: {
-            'User-Agent': `git/isogit-${git.version()}`,
-          },
-        },
-        opts
-      )
-    )
+    const result = await git[command](Object.assign({ fs, http, dir: '.', 
+      onAuth: () => ({ username: opts.username, password: opts.password }),
+      headers: { 'User-Agent': `git/isogit-${git.version()}` },
+    }, opts));
+
     if (result === undefined) return
+    
     // detect streams
     if (typeof result.on === 'function') {
       result.pipe(process.stdout)
